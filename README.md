@@ -32,15 +32,17 @@ okf-toolkit provides everything you need to work with OKF bundles:
 
 ## Installation
 
+### Via PyPI (recommended)
+
 ```bash
-# Clone the repository
-git clone https://github.com/openclaw/okf-toolkit.git
+pip install okf-toolkit
+```
+
+### Via Git
+
+```bash
+git clone https://github.com/akdira/okf-toolkit.git
 cd okf-toolkit
-
-# Install the dependency
-pip install pyyaml>=6.0
-
-# (optional) Install as a package
 pip install -e .
 ```
 

@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="okf-toolkit",
-    version="0.1.0",
+    version="0.1.1",
     description="CLI toolkit for working with Google's Open Knowledge Format (OKF)",
     long_description=long_description,
     long_description_content_type="text/markdown",
