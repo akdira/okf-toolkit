@@ -787,6 +787,7 @@ def build_parser() -> argparse.ArgumentParser:
         epilog=textwrap.dedent("""\
             See https://github.com/akdira/okf-toolkit for full documentation.
             Report issues at https://github.com/akdira/okf-toolkit/issues.
+            Created by akdira — https://www.akdira.id
         """),
     )
     parser.add_argument("--version", action="store_true", help="Show version and exit")

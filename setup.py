@@ -9,7 +9,11 @@ setup(
     description="CLI toolkit for working with Google's Open Knowledge Format (OKF)",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/openclaw/okf-toolkit",
+    url="https://github.com/akdira/okf-toolkit",
+    project_urls={
+        "Homepage": "https://www.akdira.id",
+        "Source": "https://github.com/akdira/okf-toolkit",
+    },
     license="Apache 2.0",
     py_modules=["okf"],
     python_requires=">=3.10",

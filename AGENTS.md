@@ -115,6 +115,10 @@ The tool must adhere to the OKF v0.1 specification at all times:
 - YAML loading uses `yaml.safe_load` to prevent arbitrary code execution
 - User-provided bundle paths are resolved with `Path.resolve()` to prevent path traversal
 
+## Credit
+
+This project is maintained by [akdira](https://www.akdira.id).
+
 ## For AI Agents Specifically
 
 If you are an AI agent reading this file to understand how to contribute to or use `okf-toolkit`:

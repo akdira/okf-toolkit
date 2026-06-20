@@ -180,6 +180,10 @@ Conventions:
 - New CLI commands should follow the existing pattern (see `cmd_*` functions in `okf.py`)
 - Keep ANSI color helpers in the `_color` / `green`/`red`/etc. functions
 
+## Credits
+
+Created and maintained by [akdira](https://www.akdira.id).
+
 ## License
 
 Apache 2.0. See [LICENSE](LICENSE) for the full text.

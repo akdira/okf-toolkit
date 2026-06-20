@@ -159,3 +159,7 @@ This skill is designed for OpenClaw agents. When you encounter an OKF bundle:
 8. Use `okf index` to regenerate directory listings
 
 Error tolerance: OKF consumers MUST tolerate unknown frontmatter keys. If you encounter a field you don't recognize, skip it rather than failing.
+
+---
+
+*Created by [akdira](https://www.akdira.id).*
