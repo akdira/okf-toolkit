@@ -88,6 +88,25 @@ def _rel_path(bundle_path: Path, file_path: Path) -> str:
     return str(file_path.relative_to(bundle_path))
 
 
+def _safe_dump_yaml(fm: dict) -> str:
+    """Dump frontmatter dict to YAML string, ensuring the result is valid YAML.
+
+    Falls back to quoting all string values if the default dump produces
+    invalid YAML (e.g., when descriptions contain colons, hash signs, etc.).
+    """
+    try:
+        s = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False).strip()
+        yaml.safe_load(s)
+        return s
+    except yaml.YAMLError:
+        # Fallback: dump with all strings quoted
+        s = yaml.dump(
+            fm, default_flow_style=False, allow_unicode=True,
+            sort_keys=False, default_style="'"
+        ).strip()
+        return s
+
+
 def _read_file(path: Path) -> str | None:
     """Read a file as UTF-8. Return None on encoding errors."""
     try:
@@ -303,7 +322,7 @@ def cmd_new(args: argparse.Namespace) -> int:
     if tags:
         fm["tags"] = tags
 
-    fm_str = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False).strip()
+    fm_str = _safe_dump_yaml(fm)
 
     header = f"# {title or concept_id}\n\n"
     body_placeholder = "<!-- Add concept body here -->\n"
@@ -469,7 +488,7 @@ def cmd_show(args: argparse.Namespace) -> int:
     if fm:
         print(f"\n{bold('Frontmatter:')}")
         # Pretty-print the frontmatter
-        fm_lines = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False).strip()
+        fm_lines = _safe_dump_yaml(fm)
         for line in fm_lines.split("\n"):
             print(f"  {dim(line)}")
 
