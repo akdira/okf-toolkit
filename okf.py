@@ -857,7 +857,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     if args.version:
-        print("okf-toolkit v0.1.0")
+        print("okf-toolkit v0.1.2")
         return 0
 
     if not args.command:
