@@ -7,6 +7,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import yaml
+
 # Add the parent directory to the path so we can import okf
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -15,6 +17,7 @@ from okf import (
     _find_md_files,
     _find_markdown_links,
     _rel_path,
+    _safe_dump_yaml,
     RESERVED_NAMES,
     cmd_init,
     cmd_validate,
@@ -337,6 +340,47 @@ class TestGraph(unittest.TestCase):
 
             rc = cmd_graph(Args())
             self.assertEqual(rc, 0)
+
+
+class TestSafeDumpYaml(unittest.TestCase):
+    """Test _safe_dump_yaml."""
+
+    def test_colon_in_description(self):
+        """Colon+space in a string value should produce valid YAML."""
+        fm = {
+            "type": "Test",
+            "description": "Personal identity information: phone numbers, addresses",
+            "timestamp": "2026-06-21T17:00:00Z",
+        }
+        result = _safe_dump_yaml(fm)
+        data = yaml.safe_load(result)
+        self.assertEqual(data["type"], "Test")
+        self.assertEqual(
+            data["description"],
+            "Personal identity information: phone numbers, addresses",
+        )
+
+    def test_hash_in_description(self):
+        """Hash sign in a string value should produce valid YAML."""
+        fm = {
+            "type": "Activity",
+            "description": "Step #1: do this",
+            "timestamp": "2026-06-21T17:00:00Z",
+        }
+        result = _safe_dump_yaml(fm)
+        data = yaml.safe_load(result)
+        self.assertEqual(data["description"], "Step #1: do this")
+
+    def test_no_special_chars(self):
+        """Normal descriptions should still produce clean output."""
+        fm = {
+            "type": "Metric",
+            "description": "Daily active users",
+            "timestamp": "2026-06-21T17:00:00Z",
+        }
+        result = _safe_dump_yaml(fm)
+        data = yaml.safe_load(result)
+        self.assertEqual(data["description"], "Daily active users")
 
 
 class TestRelPath(unittest.TestCase):
